@@ -50,7 +50,24 @@ class Graph {
   }
 
   // this function returns an array of Node values using DFS
-  depthFirstSearch(start) {}
+  depthFirstSearch(start) {
+    if (!this.nodes.has(start)) return [];
+    const visitedNodes = new Set();  // Track visited nodes
+    const result = [];  // Store visited node values
+
+    dfsHelper = (node) => {
+      if (visitedNodes.has(node)) return;  // Stop if already visited
+
+      visitedNodes.add(node);  // Mark node as visited
+      result.push(node.value);  // Add node value to result
+
+      for (let neighbor of node.adjacent) {
+        dfsHelper(neighbor);
+      }
+    }
+    dfsHelper(start);  // Start recursion
+    return result;  // Return the final traversal order
+  }
 
   // this function returns an array of Node values using BFS
   breadthFirstSearch(start) {}
