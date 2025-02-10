@@ -70,7 +70,27 @@ class Graph {
   }
 
   // this function returns an array of Node values using BFS
-  breadthFirstSearch(start) {}
+  breadthFirstSearch(start) {
+    const visitedNodes = new Set();  // Track visited nodes
+    const queue = [start];  // FIFO Queue (start with the first node)
+    const result = [];  // Store visited node values
+    
+    while (queue.length > 0){
+      const node = queue.shift();  // Remove the first element (FIFO)
+
+      if (!visitedNodes.has(node)) {
+        visitedNodes.add(node);  // Mark node as visited
+        result.push(node.value);  // Add node value to result
+
+        for (let neighbor of node.adjacent) {  // Add neighbors to queue
+          if (!visitedNodes.has(neighbor)) {
+            queue.push(neighbor);
+          }
+        }
+      }
+    }
+    return result;  // Return final traversal order
+  }
 }
 
 
